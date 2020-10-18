@@ -1,0 +1,34 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "javascript",
+    "graphql",
+    "html",
+    "yaml",
+    "json",
+    "python"
+  ],
+  // python config
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.pylintArgs": [
+    "--rcfile",
+    "~/.pylintrc",
+    "-d",
+    "C0411"
+  ],
+  "python.formatting.blackPath": "~/.virtual_envs/peter/bin/black",
+  "python.venvPath": "~/.virtual_envs",
+  "python.linting.pylintUseMinimalCheckers": false,
+  "python.jediEnabled": false,
+  "python.linting.pylintPath": "pylint",
+  "python.sortImports.args": [
+    "-sp",
+    "~/.isort.cfg"
+  ],
+  "snippets.ultisnips.directories": [
+    "UltiSnips",
+    "~/.config/nvim/utils/snips"
+  ]
+}
