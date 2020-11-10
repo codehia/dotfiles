@@ -22,5 +22,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
     Plug 'junegunn/gv.vim'
+    " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
