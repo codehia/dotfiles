@@ -84,6 +84,5 @@ vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 
 
 nnoremap <leader>n :nohl<CR>
-inoremap <leader>n :nohl<CR>
 nmap <leader>n :nohl<CR>
 

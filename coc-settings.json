@@ -1,4 +1,6 @@
 {
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.source.vimtex.enable": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "markdown",
@@ -10,9 +12,16 @@
     "python"
   ],
   // python config
+  "python.pythonPath": "/home/acharya/.pyenv/versions/3.8.6/bin",
+  "pyright.disableLanguageServices": false,
+  "pyright.disableOrganizeImports": false,
   "python.formatting.provider": "black",
-  "codeLens.enable": true,
+  "python.formatting.blackPath": "/home/acharya/virtual_envs/peter/bin/black",
   "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintPath": "/home/acharya/.local/bin/pylint",
+  "python.linting.pylintUseMinimalCheckers": false,
+  "codeLens.enable": true,
   "python.linting.pylintArgs": [
     "--load-plugins",
     "--rcfile",
@@ -20,12 +29,10 @@
     "-d",
     "C0411"
   ],
-  "python.formatting.blackPath": "~/.virtual_envs/peter/bin/black",
-  "python.venvPath": "~/.virtual_envs",
-  "python.linting.pylintUseMinimalCheckers": false,
-  "python.linting.pylintPath": "pylint",
+  "python.venvPath": "/home/acharya/virtual_envs",
   "snippets.ultisnips.directories": [
     "UltiSnips",
     "~/.config/nvim/utils/snips"
-  ]
+  ],
+  "suggest.enablePreview": true
 }
