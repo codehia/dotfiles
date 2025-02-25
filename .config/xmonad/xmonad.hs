@@ -194,10 +194,9 @@ myBorderWidth = 4
 myStartupHook :: X ()
 myStartupHook = do
   modify $ \xstate -> xstate {windowset = onlyOnScreen 1 "1_1 " (windowset xstate)}
-  spawnOnce "autorandr --change &" -- autorandr set monitor layout
   spawnOnce "picom &"
   spawnOnce "feh --bg-fill --randomize ~/.wallpapers/* &" -- feh set random wallpaper
-  spawn "trayer --iconspacing 5 --edge top --align right --distance 4,4 --distancefrom top,right --widthtype request --heighttype pixel --padding 5 --SetDockType true --SetPartialStrut false --expand true --monitor primary --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
+  spawnOnce "trayer --iconspacing 5 --edge top --align right --distance 4,4 --distancefrom top,right --widthtype request --heighttype pixel --padding 5 --SetDockType true --SetPartialStrut false --expand true --monitor primary --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
   setDefaultCursor xC_left_ptr -- Set cursor theme
 
 --------------------------------------
@@ -341,10 +340,18 @@ myStatusBarSpawner (S s) = do
       ("xmobar -x " ++ show s ++ " ~/.config/xmobar/xmobarrc" ++ show s ++ ".hs")
       (pure $ myXmobarPP (S s))
 
-rescreenCfg = def {randrChangeHook = myRandrChangeHook}
+myAfterRescreenHook :: X ()
+myAfterRescreenHook = spawn "sleep 1; pkill trayer; xmonad --restart"
 
 myRandrChangeHook :: X ()
 myRandrChangeHook = spawn "autorandr --change"
+
+rescreenCfg :: RescreenConfig
+rescreenCfg =
+  def
+    { afterRescreenHook = myAfterRescreenHook,
+      randrChangeHook = myRandrChangeHook
+    }
 
 manageZoomHook =
   composeAll
@@ -368,22 +375,23 @@ main :: IO ()
 main = do
   nScreens <- countScreens
   xmonad $
-    ewmhFullscreen $
-      ewmh $
-        dynamicEasySBs myStatusBarSpawner $
-          withNavigation2DConfig def $
-            def
-              { layoutHook = myLayoutHook,
-                terminal = myTerminal,
-                focusFollowsMouse = myFocusFollowsMouse,
-                clickJustFocuses = myClickJustFocuses,
-                borderWidth = myBorderWidth,
-                normalBorderColor = myNormalBorderColor,
-                focusedBorderColor = myFocusedBorderColor,
-                startupHook = myStartupHook,
-                workspaces = withScreens nScreens myWorkspaces,
-                manageHook = manageZoomHook <+> namedScratchpadManageHook myScratchpads,
-                logHook = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads,
-                keys = \c -> workspaceKeys c `Map.union` keys def c
-              }
-              `additionalKeysP` myKeys
+    rescreenHook rescreenCfg $
+      ewmhFullscreen $
+        ewmh $
+          dynamicEasySBs myStatusBarSpawner $
+            withNavigation2DConfig def $
+              def
+                { layoutHook = myLayoutHook,
+                  terminal = myTerminal,
+                  focusFollowsMouse = myFocusFollowsMouse,
+                  clickJustFocuses = myClickJustFocuses,
+                  borderWidth = myBorderWidth,
+                  normalBorderColor = myNormalBorderColor,
+                  focusedBorderColor = myFocusedBorderColor,
+                  startupHook = myStartupHook,
+                  workspaces = withScreens nScreens myWorkspaces,
+                  manageHook = manageZoomHook <+> namedScratchpadManageHook myScratchpads,
+                  logHook = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads,
+                  keys = \c -> workspaceKeys c `Map.union` keys def c
+                }
+                `additionalKeysP` myKeys
