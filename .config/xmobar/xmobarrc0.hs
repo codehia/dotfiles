@@ -19,7 +19,7 @@ Config { font    = "xft:JetBrainsMono Nerd Font:pixelsize=10:antialias=true:hint
                                               , "-l", "#FF0000" ] 1200                                          -- Wireless Interface -- 2 minute 
                     , Run Com ".local/bin/trayer-padding-icon.sh" ["panel"] "trayerpad" 50                      -- Shift all icons to the left to accomodate system tray -- 5 seconds
 		                , Run Battery ["--template", "<fc=#cba6f7><acstatus></fc>"
-                                   , "-S", "On", "-d", "0", "-m", "2" --suffix false(default), --ddigits 0 decimal places to show, --minWidth 2 characters(can be padded with -c/--padchars string)
+                                   , "-S", "󰁹 ", "-d", "0", "-m", "2" --suffix false(default), --ddigits 0 decimal places to show, --minWidth 2 characters(can be padded with -c/--padchars string)
                                    , "-L", "20", "-H", "80", "-p", "3" --Low , --High, --ppad pads percentage values with 3 characters
                                    , "-W", "0" --bwidth total number of characters used to draw bars (default 10)
                                    , "-f", "󰂎󰁺󰁻󰁼󰁽󰁾󰁿󰂀󰂁󰂂󰁹" -- Choose icon for leftbar depending on battery remaining --bfore characters used to draw bars (cyclically)
